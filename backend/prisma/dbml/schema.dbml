@@ -1,0 +1,28 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Trip {
+  id String [pk]
+  name String [not null]
+  color String
+  startDate DateTime [not null]
+  endDate DateTime [not null]
+  itinerary Itinerary [not null]
+}
+
+Table Itinerary {
+  id String [pk]
+  title String [not null]
+  description String
+  location String [not null]
+  chosenDate DateTime [not null]
+  startTime DateTime [not null]
+  endTime DateTime [not null]
+  trip Trip [not null]
+  tripId String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Ref: Itinerary.tripId > Trip.id

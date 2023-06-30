@@ -1,0 +1,32 @@
+{
+  "name": "coding-pratice-2023",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "127.0.0.1:11000",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.1.1",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/lab": "^5.0.0-alpha.134",
+    "@mui/material": "^5.13.6",
+    "@mui/x-date-pickers": "^6.9.0",
+    "@react-pdf/renderer": "^3.1.12",
+    "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
+    "eslint": "8.43.0",
+    "eslint-config-next": "13.4.7",
+    "next": "13.4.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.0",
+    "swr": "^2.2.0",
+    "yup": "^1.2.0"
+  }
+}

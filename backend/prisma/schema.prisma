@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Trip {
+  id        String      @id @default(cuid())
+  name      String
+  color     String?
+  startDate DateTime
+  endDate   DateTime
+  itinerary Itinerary[]
+}
+
+model Itinerary {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  location    String
+  chosenDate  DateTime
+  startTime   DateTime
+  endTime     DateTime
+  trip        Trip     @relation(fields: [tripId], references: [id])
+  tripId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
