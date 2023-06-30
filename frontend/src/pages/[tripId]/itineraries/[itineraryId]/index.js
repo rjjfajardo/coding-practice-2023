@@ -25,7 +25,7 @@ const ItineraryDetails = () => {
 
   if (isLoading) return <Loading />;
   return (
-    <Stack boxShadow={2} margin={20} height={300} padding={2}>
+    <Stack boxShadow={2} margin={20} height="auto" padding={2}>
       <Box
         display="flex"
         flexDirection="row"
@@ -50,7 +50,7 @@ const ItineraryDetails = () => {
         </IconButton>
 
         <Typography variant="h4" mt={2}>
-          {itinerary.title}
+          {itinerary?.title}
         </Typography>
         <IconButton
           size="small"
@@ -78,7 +78,7 @@ const ItineraryDetails = () => {
               fontSize={20}
             >
               <LocationOnIcon />
-              {itinerary.location}
+              {itinerary?.location}
             </Stack>
           </Grid>
           <Grid item>
@@ -89,28 +89,28 @@ const ItineraryDetails = () => {
               fontSize={20}
             >
               <AccessTimeFilledIcon />
-              {formatDate(itinerary.chosenDate, "dd MMMM yyyy")}{" "}
-              {formatTime(itinerary.startTime)} -{" "}
-              {formatTime(itinerary.endTime)}
+              {itinerary?.choseDante &&
+                formatDate(itinerary.chosenDate, "dd MMMM yyyy")}{" "}
+              {itinerary?.startTime && formatTime(itinerary.startTime)} -{" "}
+              {itinerary?.endTime && formatTime(itinerary.endTime)}
             </Stack>
           </Grid>
         </Grid>
-        <Stack
+        <Box
           display="flex"
-          direction="column"
+          flexDirection="column"
           ml={1}
           mt={5}
           fontSize={18}
           fontWeight={400}
           color="grey.600"
-          textOverflow="hidden"
-          whiteSpace="nowrap"
+          minWidth="50%"
         >
           <Typography fontWeight={500} color="#000000">
             Description
           </Typography>
           {itinerary.description}
-        </Stack>
+        </Box>
       </Box>
     </Stack>
   );

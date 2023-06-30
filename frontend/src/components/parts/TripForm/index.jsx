@@ -1,18 +1,15 @@
 import Button from "@mui/material/Button";
-import MuiFormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
-import { useRouter } from "next/router";
 
 import apiClient from "@/lib/apiClient";
+import { yupResolver } from "@hookform/resolvers/yup";
 import CardTravelIcon from "@mui/icons-material/CardTravel";
 import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Controller, useForm } from "react-hook-form";
 import { mutate } from "swr";
-import { FormLabel } from "../ItineraryForm";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { FormLabel } from "../ItineraryForm";
 
 const TripForm = () => {
   const schema = yup.object().shape({
@@ -21,12 +18,12 @@ const TripForm = () => {
     startDate: yup.date().required(),
     endDate: yup.date().required(),
   });
-  const router = useRouter();
 
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting, reset },
+    reset,
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
@@ -35,8 +32,13 @@ const TripForm = () => {
   const onSubmit = async (data) => {
     try {
       await apiClient.post("/trips", data).then(() => {
-        reset();
-        mutate(`/trips`);
+        reset({
+          name: "",
+          color: "",
+          startDate: null,
+          endDate: null,
+        });
+        mutate("/trips");
       });
     } catch (e) {
       console.error(e);

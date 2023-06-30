@@ -1,22 +1,17 @@
-import {
-  Document,
-  Page,
-  View,
-  Text,
-  Image,
-  PDFViewer,
-  StyleSheet,
-  Font,
-} from "@react-pdf/renderer";
-import { useState, useEffect } from "react";
 import { formatDate } from "@/lib/formatDate";
 import { formatTime } from "@/lib/formatTime";
-// Font.register({ family: "Inter", src: "/assets/font.otf" });
+import {
+  Document,
+  PDFViewer,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
   body: {
-    paddingTop: 20,
-    // fontFamily: "Inter",
+    paddingTop: 5,
   },
 });
 

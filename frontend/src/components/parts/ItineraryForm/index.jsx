@@ -1,19 +1,16 @@
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MuiFormLabel from "@mui/material/FormLabel";
+import TextField from "@mui/material/TextField";
 import { useRouter } from "next/router";
 
-import Stack from "@mui/material/Stack";
-import { DatePicker, TimePicker } from "@mui/x-date-pickers";
-import { styled } from "@mui/material/styles";
 import apiClient from "@/lib/apiClient";
-import { useForm, Controller } from "react-hook-form";
-import useSWR, { mutate } from "swr";
-import Loading from "../Loading";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-const schema = yup.object().shape({});
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
+import { Controller, useForm } from "react-hook-form";
+import { mutate } from "swr";
+import * as yup from "yup";
 
 export const FormLabel = styled(MuiFormLabel)(({ theme }) => ({
   ...theme.typography,
@@ -29,7 +26,7 @@ export const FormLabel = styled(MuiFormLabel)(({ theme }) => ({
   },
 }));
 
-const ItineraryForm = ({ startDate, endDate, name }) => {
+const ItineraryForm = ({ startDate, endDate }) => {
   const schema = yup.object().shape({
     title: yup.string().required(),
     location: yup.string().required(),
@@ -45,7 +42,8 @@ const ItineraryForm = ({ startDate, endDate, name }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting, reset },
+    reset,
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
@@ -59,7 +57,14 @@ const ItineraryForm = ({ startDate, endDate, name }) => {
           tripId,
         })
         .then(() => {
-          reset();
+          reset({
+            title: "",
+            location: "",
+            chosenDate: null,
+            startTime: null,
+            endTime: null,
+            description: "",
+          });
           mutate(`/${tripId}/itineraries`);
         });
     } catch (e) {
@@ -114,6 +119,7 @@ const ItineraryForm = ({ startDate, endDate, name }) => {
               <DatePicker
                 onChange={onChange}
                 value={value}
+                minDate={new Date(startDate)}
                 shouldDisableDate={(date) => {
                   const minDate = new Date(startDate);
                   const maxDate = new Date(endDate);
